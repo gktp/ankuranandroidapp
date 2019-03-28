@@ -15,6 +15,8 @@ import com.ankuran.model.ItemFilterView;
 import com.ankuran.ui.adaptar.listener.OnRecyclerItemClickListener;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class ItemFilterRecyclerViewAdapter extends RecyclerView.Adapter<ItemFilterRecyclerViewAdapter.ViewHolder> {
@@ -54,19 +56,25 @@ public class ItemFilterRecyclerViewAdapter extends RecyclerView.Adapter<ItemFilt
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView unitsAvailable;
+        TextView itemCategory;
         TextView itemName;
         ImageView itemImage;
         ViewHolder(View itemView) {
             super(itemView);
             itemName = itemView.findViewById(R.id.item);
+            unitsAvailable = itemView.findViewById(R.id.units);
+            itemCategory = itemView.findViewById(R.id.category);
             itemImage = itemView.findViewById(R.id.thumbnail);
-
         }
 
         public void bind(final ItemFilterView itemFilterView, final OnRecyclerItemClickListener listener, final int position) {
             final Item item = itemFilterView.getItem();
             //TODO add image using picasso
-            itemName.setText(item.getName());
+            itemName.setText("Item: " + item.getName());
+            int numAvailable = item.availableUnits;
+            unitsAvailable.setText("Units: " + String.valueOf(numAvailable));
+            itemCategory.setText("Category: " + item.category);
             if(!TextUtils.isEmpty(item.getPicture()))
             {
 
